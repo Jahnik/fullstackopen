@@ -1,12 +1,25 @@
 import { use, useState } from 'react'
 
 
-
 const Button = (props) => {
   return (
     <button onClick={props.onClick}>
       {props.text}
     </button>
+  )
+}
+
+const Statistics = (props) => {
+  return(
+    <div>
+      <h1>Statistics</h1>
+      <p>Good: {props.good}</p>
+      <p>Neutral: {props.neutral}</p>
+      <p>Bad: {props.bad}</p>
+      <p>Total Feedback: {props.total}</p>
+      <p>Feedback Average: {(props.good + (-props.bad))/props.total}</p>
+      <p>Feedback %Positive: {props.good/props.total*100}%</p>
+    </div>
   )
 }
 
@@ -41,13 +54,7 @@ const App = () => {
       <Button onClick={() => increaseGood()} text='Good'></Button>
       <Button onClick={() => increaseNeutral()} text='Neutral'></Button>
       <Button onClick={() => increaseBad()} text='Bad'></Button>
-      <p>Good: {good}</p>
-      <p>Neutral: {neutral}</p>
-      <p>Bad: {bad}</p>
-      <h1>Statistics</h1>
-      <p>Total Feedback: {total}</p>
-      <p>Feedback Average: {(good + (-bad))/total}</p>
-      <p>Feedback %Positive: {good/total*100}%</p>
+      <Statistics good={good} bad={bad} neutral={neutral} total={total}/>
     </div>
   )
 }
