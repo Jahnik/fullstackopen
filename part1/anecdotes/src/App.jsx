@@ -15,6 +15,7 @@ const App = () => {
 
   const [selected, setSelected] = useState(0)
   const [votes, setVotes] = useState(Array(8).fill(0))
+  const [popular, setPopular] = useState(0)
 
   //Returns a random number between min (inclusive) and max (exclusive)
   const getRandomInteger = (max, min) => {
@@ -28,15 +29,26 @@ const App = () => {
   const handleVote = () => {
     const copy = [...votes]
     copy[selected] += 1
+
+    for (let i = 0; i < copy.length; i++) {
+      if (copy[i] > copy[popular]) {
+        setPopular(i)
+      }
+    }
+
     setVotes(copy)
   }
 
   return (
     <div>
+      <h1>Anecdote of the Day</h1>
       <p>{anecdotes[selected]}</p>
       <p> has {votes[selected]} votes!</p>
       <button onClick={handleVote}>Vote!</button>
       <button onClick={handleGeneration}>Next anecdote!</button>
+      <h1>Most Popular Anecdote</h1>
+      <p>{anecdotes[popular]}</p>
+      <p> has {votes[popular]} votes!</p>
     </div>
   )
 }
