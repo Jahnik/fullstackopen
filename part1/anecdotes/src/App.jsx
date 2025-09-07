@@ -13,21 +13,30 @@ const App = () => {
     'The only way to go fast, is to go well.'
   ]
 
+  const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(Array(8).fill(0))
+
   //Returns a random number between min (inclusive) and max (exclusive)
   const getRandomInteger = (max, min) => {
     return Math.floor(Math.random() * (max - min) + min)
   }
 
-  const [selected, setSelected] = useState(0)
-
-  const generateAnecdote = () => {
+  const handleGeneration = () => {
     setSelected(getRandomInteger(0, 8))
+  }
+
+  const handleVote = () => {
+    const copy = [...votes]
+    copy[selected] += 1
+    setVotes(copy)
   }
 
   return (
     <div>
       <p>{anecdotes[selected]}</p>
-      <button onClick={generateAnecdote}>Generate!</button>
+      <p> has {votes[selected]} votes!</p>
+      <button onClick={handleVote}>Vote!</button>
+      <button onClick={handleGeneration}>Next anecdote!</button>
     </div>
   )
 }
