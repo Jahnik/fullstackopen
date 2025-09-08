@@ -23,6 +23,7 @@ const Content = ({parts}) => {
           {part.name} {part.exercises}
         </p>
       )}
+      <p>Total Exercises: {parts.reduce((acc, part) => part.exercises + acc, 0)}</p>
     </div>
   )
 }
